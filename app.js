@@ -1,6 +1,6 @@
 'use strict';
 
-let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
+let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','8pm'];
 
 let seattle = {
   min: 23,
@@ -19,7 +19,6 @@ let seattle = {
       // console.log(this.generateCustomersBetween);
       this.cookiesPerHourArr.push(hourlyCookies);
       this.grandTotal += hourlyCookies;
-
     }
   }
 };
@@ -34,7 +33,10 @@ let textElement = document.getElementById('Total');
 let textElementHours = document.getElementById('Hours');
 textElementHours.textContent = seattle.cookiesPerHourArr;
 textElement.textContent = seattle.grandTotal;
-
+let answersList = document.creareElement('ul');
+for(let i=0; i < cookiesPerHourArr.length; i++){
+  let listItemElement = document.createElement('li');
+}
 
 // let tokyo = {
 //   min: 3,
