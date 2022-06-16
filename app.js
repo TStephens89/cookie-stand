@@ -1,59 +1,75 @@
 'use strict';
 
 let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','8pm'];
+let table1 = document.getElementById('cookieData');
+let cities = [];
+// constructor function passing parameters for name, min, max, and avg cookies sold.  inside we have objects initialized in instances of class "this." - how we access constructor function keyword that refers to object " remember book analogy"
 
-function CookieShop(name, min, max, cookiePerHour, customersPerHour, average, grandTotal) {
+function CookieShop(name, min, max, average) {
   this.name = name;
   this.min = min;
   this.max = max;
-  this.cookiePerHour = cookiePerHour;
-  this.customersPerHour = customersPerHour;
   this.average = average;
-  this.grandTotal= grandTotal;
+  this.cookiesPerHour = [];
+  this.cookieTotal = 0;
+  this.calcCookiesPerHour();
+  CookieShop.all.push(this);
 }
+CookieShop.all = [];
 hours.push(this);
+
+// prototypes inherits features from constructor... gives sets of instruction to be used in constructor
 
 CookieShop.prototype.calcCookiesPerHour = function () {
   for (let i = 0; i < hours.length; i++) {
-    let hourlyCookies = Math.ceil(this.generateCustomersBetween() * this.average);
-    
-CookieShop.prototype.calcCustomersPerHour = generateCustomersBetween = function () {
-    return Math.round(Math.random() * (this.max - this.min + 1)) + this.min;
-        }
-CookieShop.all = [];
+    let hourlyCookies = Math.ceil(this.calcCustomersPerHour() * this.average);
+    this.cookiesPerHour.push(hourlyCookies);
+    this.cookieTotal += hourlyCookies;
+  }
+};
 
+CookieShop.prototype.calcCustomersPerHour = function () {
+  return Math.round(Math.random() * (this.max - this.min + 1)) + this.min;
+};
+CookieShop.prototype.renderStoreRow = function () {
+  let storeRow = document.createElement('tr');
+  table1.appendChild(storeRow);
+  let storeName = document.createElement('td');
+  //1.where 2.what 3.which thing
+  storeRow.appendChild(storeName);
+  storeName.textContent = this.name;
+  for (let j = 0; j < 15; j++){
+    let cookies = this.cookiesPerHour[j];
+    // storeName.textContent = cookies;
+  }
 
+};
 
+let seattle = new CookieShop('seattle', 23, 65, 6.3);
+let tokyo = new CookieShop('Tokyo', 3, 24, 1.2);
+let dubai = new CookieShop('Dubai', 11, 38, 3.7);
+let paris = new CookieShop('Paris', 20, 38, 2.3);
+let lima = new CookieShop('Lima', 2, 16, 4.6);
+console.log(CookieShop.all);
+// render table
 
-
-// const seattle = {
-//   name: 'Seattle',
-//   min: 23,
-//   max: 65,
-//   cookiesPerHourArr: [],
-//   average: 6.3,
-//   grandTotal: 0,
-  
-//   // total: totalCookies(this.customers, this.cookies),
-//   generateCustomersBetween: function () {
-//     return Math.round(Math.random() * (this.max - this.min + 1)) + this.min;
-//   },
-//   calcCookiesPerHour: function () {
-//     for (let i = 0; i < hours.length; i++) {
-//       let hourlyCookies = Math.ceil(this.generateCustomersBetween() * this.average);
-//       // console.log(this.generateCustomersBetween);
-//       this.cookiesPerHourArr.push(hourlyCookies);
-//       this.grandTotal += hourlyCookies;
-//     }
-//   }
-// };
-// seattle.calcCookiesPerHour();
-// let customers = seattle.generateCustomersBetween();
-// let averageCookies = customers * 6.3;
-// console.log(customers);
-// console.log(averageCookies);
-// console.log(seattle.cookiesPerHourArr);
-// console.log(seattle.grandTotal);
+function renderHeaderRow(){
+  let tableHeaderRow = document.createElement('tr');
+  table1.appendChild(tableHeaderRow);
+  let GrandTotal = document.createElement('td');
+  tableHeaderRow.appendChild(GrandTotal);
+  for (let i = 0; i < 15 ; i++){
+    let tableHeader = document.createElement('td');
+    tableHeader.textContent = hours[i];
+    tableHeaderRow.appendChild(tableHeader);
+  }
+}
+renderHeaderRow();
+seattle.renderStoreRow();
+tokyo.renderStoreRow();
+dubai.renderStoreRow();
+paris.renderStoreRow();
+lima.renderStoreRow();
 
 
 // // creating an h2 and assigning to cityName
@@ -76,7 +92,7 @@ CookieShop.all = [];
 // totalEl.textContent = ' total: ' + seattle.grandTotal;
 // seattleHoursElement.appendChild(totalEl);
 // allCitiesDiv.appendChild(seattleHoursElement);
-
+  
 // // textElementHours.textContent = seattle.cookiesPerHourArr;
 
 // // let tokyoH2 = document.createElement('h2');
