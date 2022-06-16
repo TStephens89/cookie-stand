@@ -39,7 +39,8 @@ CookieShop.prototype.renderStoreRow = function () {
   storeRow.appendChild(storeName);
   storeName.textContent = this.name;
   for (let j = 0; j < 15; j++){
-    let cookies = this.cookiesPerHour[j];
+    let cookies = document.createElement('td');
+    cookies.textContent = 
     // storeName.textContent = cookies;
   }
 
