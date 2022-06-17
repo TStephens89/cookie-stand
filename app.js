@@ -3,6 +3,17 @@
 let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Grand Total'];
 
 let getTableElement = document.getElementById('cookieData');
+
+
+
+
+
+
+
+
+
+
+
 // constructor function passing parameters for name, min, max, and avg cookies sold.  inside we have objects initialized in instances of class "this." - how we access constructor function keyword that refers to object " remember book analogy"
 
 function CookieShop(name, min, max, average) {

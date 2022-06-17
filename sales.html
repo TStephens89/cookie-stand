@@ -14,7 +14,28 @@
 <body>
   <h1>Salmon Cookies</h1>
   <img src="https://codefellows.github.io/code-201-guide/curriculum/class-06/lab/assets/salmon.png">
-  
+  <form id='addCity'>
+    <fieldset>
+      <legend>Use this form to add a new City</legend>
+      
+      <div class='formDiv'>
+        <label for='cityName'>City Name: </label>
+        <input type='text' name='cityName' required>
+
+        <label for='min'>Min. Customers Per Hour: </label>
+        <input type="text" name='min' required>
+      </div>
+      
+      <div class='formDiv'>
+        <label for='max'>Maximum Customers Per Hour: </label>
+        <input type='text' name='max' required>
+
+        <label for='avgCookies'>Average Cookies purchased </label>
+        <input type='text' name='avgCookies' required>
+      </div>
+
+      <input id='button' type="submit" value="Click here to add">
+    </fieldset>
   <table id="cookieData">
    
     
