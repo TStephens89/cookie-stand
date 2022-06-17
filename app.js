@@ -1,8 +1,8 @@
 'use strict';
 
-let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm','8pm'];
-let table1 = document.getElementById('cookieData');
-let cities = [];
+let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Grand Total'];
+
+let getTableElement = document.getElementById('cookieData');
 // constructor function passing parameters for name, min, max, and avg cookies sold.  inside we have objects initialized in instances of class "this." - how we access constructor function keyword that refers to object " remember book analogy"
 
 function CookieShop(name, min, max, average) {
@@ -16,54 +16,80 @@ function CookieShop(name, min, max, average) {
   CookieShop.all.push(this);
 }
 CookieShop.all = [];
-hours.push(this);
 
 // prototypes inherits features from constructor... gives sets of instruction to be used in constructor
 
 CookieShop.prototype.calcCookiesPerHour = function () {
-  for (let i = 0; i < hours.length; i++) {
-    let hourlyCookies = Math.ceil(this.calcCustomersPerHour() * this.average);
+  for (let i = 0; i < hours.length - 1; i++) {
+    let hourlyCookies = Math.ceil(this.randomNumberGenerator() * this.average);
     this.cookiesPerHour.push(hourlyCookies);
     this.cookieTotal += hourlyCookies;
+    
   }
+  
 };
 
-CookieShop.prototype.calcCustomersPerHour = function () {
+CookieShop.prototype.randomNumberGenerator = function () {
   return Math.round(Math.random() * (this.max - this.min + 1)) + this.min;
 };
 CookieShop.prototype.renderStoreRow = function () {
   let storeRow = document.createElement('tr');
-  table1.appendChild(storeRow);
+  getTableElement.appendChild(storeRow);
   let storeName = document.createElement('td');
   //1.where 2.what 3.which thing
-  storeRow.appendChild(storeName);
   storeName.textContent = this.name;
-  for (let j = 0; j < 15; j++){
-    let cookies = document.createElement('td');
-    cookies.textContent = 
-    // storeName.textContent = cookies;
+  storeRow.appendChild(storeName);
+  
+  for (let i = 0; i < hours.length - 1; i++) {
+    let tableDataElement = document.createElement('td');
+    tableDataElement.textContent = this.cookiesPerHour[i];
+    storeRow.appendChild(tableDataElement);
   }
-
+  let totalsRow = document.createElement('td');
+  totalsRow.textContent = this.cookieTotal;
+  storeRow.appendChild(totalsRow);
 };
 
-let seattle = new CookieShop('seattle', 23, 65, 6.3);
+let seattle = new CookieShop('Seattle', 23, 65, 6.3);
 let tokyo = new CookieShop('Tokyo', 3, 24, 1.2);
 let dubai = new CookieShop('Dubai', 11, 38, 3.7);
 let paris = new CookieShop('Paris', 20, 38, 2.3);
 let lima = new CookieShop('Lima', 2, 16, 4.6);
 console.log(CookieShop.all);
+
+console.log(CookieShop.all[0].cookiesPerHour[1]);
 // render table
 
-function renderHeaderRow(){
+function renderHeaderRow() {
   let tableHeaderRow = document.createElement('tr');
-  table1.appendChild(tableHeaderRow);
-  let GrandTotal = document.createElement('td');
-  tableHeaderRow.appendChild(GrandTotal);
-  for (let i = 0; i < 15 ; i++){
+  let grandTotal = document.createElement('td');
+  tableHeaderRow.appendChild(grandTotal);
+  for (let i = 0; i < hours.length; i++) {
     let tableHeader = document.createElement('td');
     tableHeader.textContent = hours[i];
     tableHeaderRow.appendChild(tableHeader);
   }
+
+  getTableElement.appendChild(tableHeaderRow);
+
+}
+function renderFooterRow() {
+  let tableFooterRow = document.createElement('tr');
+  let hourlyTotal = document.createElement('td');
+  tableFooterRow.appendChild(hourlyTotal);
+  // for each hour 
+    //for each location
+      //add allnumbers
+  for (let i = 0; i < hours.length - 1 ; i++){
+    let sum = 0;
+    for (let j = 0; j < CookieShop.all.length; j++){
+      sum += CookieShop.all[j].cookiesPerHour[i];
+    }
+    let tableFooter = document.createElement('td');
+    tableFooter.textContent = sum;
+    tableFooterRow.appendChild(tableFooter);
+  }
+  getTableElement.appendChild(tableFooterRow);
 }
 renderHeaderRow();
 seattle.renderStoreRow();
@@ -71,6 +97,7 @@ tokyo.renderStoreRow();
 dubai.renderStoreRow();
 paris.renderStoreRow();
 lima.renderStoreRow();
+renderFooterRow();
 
 
 // // creating an h2 and assigning to cityName
@@ -93,7 +120,7 @@ lima.renderStoreRow();
 // totalEl.textContent = ' total: ' + seattle.grandTotal;
 // seattleHoursElement.appendChild(totalEl);
 // allCitiesDiv.appendChild(seattleHoursElement);
-  
+
 // // textElementHours.textContent = seattle.cookiesPerHourArr;
 
 // // let tokyoH2 = document.createElement('h2');
@@ -110,7 +137,7 @@ lima.renderStoreRow();
 //   cookiesPerHourArr: [],
 //   average: 1.2,
 //   grandTotal: 0,
-  
+
 //   generateCustomersBetween: function () {
 //     return Math.round(Math.random() * (this.max - this.min + 1)) + this.min;
 //   },
