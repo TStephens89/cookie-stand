@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Front Page</title>
-  <!-- <link rel="stylesheet" href="style.css" /> -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <!-- render whats in app.js into html file render what is in the console log   target html element by ID type  hours element would receive hours array and render it-->
@@ -14,6 +14,9 @@
 <body>
   <h1>Salmon Cookies</h1>
   <img src="https://codefellows.github.io/code-201-guide/curriculum/class-06/lab/assets/salmon.png">
+<h3> Sales Data</h3>  
+  
+  
   <form id='addCity'>
     <fieldset>
       <legend>Use this form to add a new City</legend>
@@ -36,6 +39,9 @@
 
       <input id='button' type="submit" value="Click here to add">
     </fieldset>
+    <div class='about'>
+      <p>Data for cookies generated per hour for each store location</p>
+    </div>
   <table id="cookieData">
    
     
@@ -49,7 +55,12 @@
   
   
   <a href="index.html">Take me to home</a>
-  
+  <footer>
+    <div id='info'>
+      <p><strong class='strong'>HQ Location:</strong> 555 hypothetical Drive, Anywhere, USA 00000  </p>
+      <p><strong class='strong'>Hours of Operation: </strong> 6:00 AM to 8:00 PM</p>
+    </div>
+  </footer>
 </script>
 </body>
 

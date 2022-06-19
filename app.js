@@ -1,11 +1,22 @@
 'use strict';
 
-let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm', 'Grand Total'];
+let hours = ['6am', '7am', '8am', '9am', '10am', '11am', '12pm', '1pm', '2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm',];
 
 let getTableElement = document.getElementById('cookieData');
 
+let newForm = document.getElementById('addCity');
 
+newForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  let name = event.target.cityName.value;
+  let minCust = parseInt(event.target.min.value);
+  let maxCust = parseInt(event.target.max.value);
+  let avgCookies = parseInt(event.target.avgCookies.value);
 
+  let generatedStore = new CookieShop(name, minCust, maxCust, avgCookies);
+  // generatedStore.calcCookiesPerHour();
+  generatedStore.renderData();
+});
 
 
 
@@ -31,13 +42,38 @@ CookieShop.all = [];
 // prototypes inherits features from constructor... gives sets of instruction to be used in constructor
 
 CookieShop.prototype.calcCookiesPerHour = function () {
-  for (let i = 0; i < hours.length - 1; i++) {
+  for (let i = 0; i < hours.length; i++) {
     let hourlyCookies = Math.ceil(this.randomNumberGenerator() * this.average);
     this.cookiesPerHour.push(hourlyCookies);
     this.cookieTotal += hourlyCookies;
-    
+
   }
-  
+
+};
+
+CookieShop.prototype.renderData = function () {
+  let tableEl = document.getElementById('cookieData');
+  let rowEl = document.createElement('tr');
+
+  // add the store name to the row
+  let nameCell = document.createElement('td');
+  //will gave a id to a td
+  // nameCell.id = 'new';
+  nameCell.textContent = this.name;
+  rowEl.appendChild(nameCell);
+
+  for (let i = 0; i < this.cookiesPerHour.length; i++) {
+    let cellEl = document.createElement('td');
+    cellEl.textContent = this.cookiesPerHour[i];
+    rowEl.appendChild(cellEl);
+  }
+  let totalCell = document.createElement('td');
+  totalCell.textContent = this.cookieTotal;
+  rowEl.appendChild(totalCell);
+
+  tableEl.appendChild(rowEl);
+
+  // console.log(hourlyCookies);
 };
 
 CookieShop.prototype.randomNumberGenerator = function () {
@@ -50,8 +86,8 @@ CookieShop.prototype.renderStoreRow = function () {
   //1.where 2.what 3.which thing
   storeName.textContent = this.name;
   storeRow.appendChild(storeName);
-  
-  for (let i = 0; i < hours.length - 1; i++) {
+
+  for (let i = 0; i < hours.length; i++) {
     let tableDataElement = document.createElement('td');
     tableDataElement.textContent = this.cookiesPerHour[i];
     storeRow.appendChild(tableDataElement);
@@ -66,14 +102,13 @@ let tokyo = new CookieShop('Tokyo', 3, 24, 1.2);
 let dubai = new CookieShop('Dubai', 11, 38, 3.7);
 let paris = new CookieShop('Paris', 20, 38, 2.3);
 let lima = new CookieShop('Lima', 2, 16, 4.6);
-console.log(CookieShop.all);
 
-console.log(CookieShop.all[0].cookiesPerHour[1]);
+
 // render table
 
 function renderHeaderRow() {
   let tableHeaderRow = document.createElement('tr');
-  let grandTotal = document.createElement('td');
+  let grandTotal = document.createElement('tr');
   tableHeaderRow.appendChild(grandTotal);
   for (let i = 0; i < hours.length; i++) {
     let tableHeader = document.createElement('td');
@@ -82,6 +117,10 @@ function renderHeaderRow() {
   }
 
   getTableElement.appendChild(tableHeaderRow);
+  let newgrandTotal = document.createElement('td');
+  newgrandTotal.textContent = 'Grand Total';
+  tableHeaderRow.appendChild(newgrandTotal);
+
 
 }
 function renderFooterRow() {
@@ -89,25 +128,32 @@ function renderFooterRow() {
   let hourlyTotal = document.createElement('td');
   tableFooterRow.appendChild(hourlyTotal);
   // for each hour 
-    //for each location
-      //add allnumbers
-  for (let i = 0; i < hours.length - 1 ; i++){
+  //for each location
+  //add allnumbers
+  for (let i = 0; i < hours.length; i++) {
     let sum = 0;
-    for (let j = 0; j < CookieShop.all.length; j++){
+    for (let j = 0; j < CookieShop.all.length; j++) {
       sum += CookieShop.all[j].cookiesPerHour[i];
     }
     let tableFooter = document.createElement('td');
     tableFooter.textContent = sum;
     tableFooterRow.appendChild(tableFooter);
+    let totalData= document.createElement('td');
+    totalData.appendChild(tableFooterRow);
+    
+
   }
   getTableElement.appendChild(tableFooterRow);
 }
+
+
 renderHeaderRow();
 seattle.renderStoreRow();
 tokyo.renderStoreRow();
 dubai.renderStoreRow();
 paris.renderStoreRow();
 lima.renderStoreRow();
+
 renderFooterRow();
 
 
