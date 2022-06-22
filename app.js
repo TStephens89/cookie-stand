@@ -24,7 +24,6 @@ newForm.addEventListener('submit', function (event) {
 
 
 
-
 // constructor function passing parameters for name, min, max, and avg cookies sold.  inside we have objects initialized in instances of class "this." - how we access constructor function keyword that refers to object " remember book analogy"
 
 function CookieShop(name, min, max, average) {
