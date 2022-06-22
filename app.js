@@ -126,7 +126,7 @@ function renderFooterRow() {
   let tableFooterRow = document.createElement('tr');
   let hourlyTotal = document.createElement('td');
   tableFooterRow.appendChild(hourlyTotal);
-  // for each hour 
+  // for each hour
   //for each location
   //add allnumbers
   for (let i = 0; i < hours.length; i++) {
@@ -139,7 +139,7 @@ function renderFooterRow() {
     tableFooterRow.appendChild(tableFooter);
     let totalData= document.createElement('td');
     totalData.appendChild(tableFooterRow);
-    
+
 
   }
   getTableElement.appendChild(tableFooterRow);
